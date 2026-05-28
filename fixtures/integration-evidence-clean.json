@@ -1,0 +1,66 @@
+{
+  "integrations": [
+    {
+      "id": "IEL-5001",
+      "integration": "Benefits API -> case management sync",
+      "handoff": "Enrollment event to case confirmation",
+      "platform": "IBM App Connect + REST",
+      "owner": "Integration Governance",
+      "status": "ON_TRACK",
+      "workflowHealthy": true,
+      "hoursToCheckpoint": 36,
+      "packet": "Contract and SLA packet",
+      "excerpt": "All evidence is present and the delivery packet is complete.",
+      "nextAction": "Hold for standard checkpoint signoff."
+    },
+    {
+      "id": "IEL-5002",
+      "integration": "Provisioning bus -> identity queue",
+      "handoff": "Hire event to access issuance",
+      "platform": "Kafka + Identity Hub",
+      "owner": "Operations Readiness",
+      "status": "ON_TRACK",
+      "workflowHealthy": true,
+      "hoursToCheckpoint": 30,
+      "packet": "Replay and delivery packet",
+      "excerpt": "Replay evidence is clean and the fallback chronology is complete.",
+      "nextAction": "Keep the packet ready for scheduled checkpoint."
+    }
+  ],
+  "packets": [
+    {
+      "id": "PKT-900",
+      "integrationId": "IEL-5001",
+      "integration": "Benefits API -> case management sync",
+      "handoff": "Enrollment event to case confirmation",
+      "platform": "IBM App Connect + REST",
+      "owner": "Integration Governance",
+      "domain": "SCHEMA",
+      "kind": "Contract",
+      "severity": "low",
+      "status": "RESOLVED",
+      "scope": "Contract packet review",
+      "principal": "Schema signoff packet",
+      "message": "Contract packet cleared review.",
+      "openedAt": "2026-05-20T10:00:00Z",
+      "dueAt": "2026-05-25T17:00:00Z"
+    },
+    {
+      "id": "PKT-901",
+      "integrationId": "IEL-5002",
+      "integration": "Provisioning bus -> identity queue",
+      "handoff": "Hire event to access issuance",
+      "platform": "Kafka + Identity Hub",
+      "owner": "Operations Readiness",
+      "domain": "REPLAY",
+      "kind": "Replay",
+      "severity": "low",
+      "status": "RESOLVED",
+      "scope": "Replay review",
+      "principal": "Replay attestation",
+      "message": "Replay packet cleared review.",
+      "openedAt": "2026-05-19T09:00:00Z",
+      "dueAt": "2026-05-24T17:00:00Z"
+    }
+  ]
+}
