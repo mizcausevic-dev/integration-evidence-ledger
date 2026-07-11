@@ -48,8 +48,20 @@ jobs:
           # unrelated to this repo's security posture.
           publish_results: false
 
+      - name: Check SARIF validity
+        id: sarif_check
+        if: always()
+        run: |
+          if [ -f results.sarif ] && python3 -c "import json; json.load(open('results.sarif'))" 2>/dev/null; then
+            echo "valid=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "valid=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::results.sarif missing or invalid (likely Scorecard was interrupted by an external rate limit) — skipping SARIF upload this run, not a code defect."
+          fi
+
       - name: Upload SARIF (so Security tab shows findings)
         uses: github/codeql-action/upload-sarif@03e4368ac7daa2bd82b3e85262f3bf87ee112f57  # v3
+        if: steps.sarif_check.outputs.valid == 'true'
         with:
           sarif_file: results.sarif
 
